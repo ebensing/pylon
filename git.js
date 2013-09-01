@@ -24,10 +24,10 @@ function exec(command, callback) {
  */
 
 function clone_repo(url, name, cb) {
-  exec(utils.format("git clone %s %s", url, name), function (err, stdout, stderr) {
+  exec(utils.format("git clone %s ../%s", url, name), function (err, stdout, stderr) {
     if (err) return cb(err);
 
-    return cb(null, "./" + name);
+    return cb(null, "../" + name);
   });
 }
 

@@ -13,7 +13,7 @@ var sock = axon.socket('sub-emitter');
 sock.connect(config.pubPort, config.serverUrl);
 
 sock.on('deploy', function (cfg, url) {
-  var ex = fs.existsSync(cfg.name);
+  var ex = fs.existsSync("../" + cfg.name);
   console.log("Deploying %s", cfg.name);
 
   if (!ex) {
@@ -23,7 +23,7 @@ sock.on('deploy', function (cfg, url) {
       });
     });
   } else {
-    git.pull_latest(cfg.name, cfg.branch, runAfterCommands);
+    git.pull_latest("../" + cfg.name, cfg.branch, runAfterCommands);
   }
 
   function runAfterCommands(err, loc) {
