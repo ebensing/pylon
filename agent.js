@@ -36,7 +36,7 @@ sock.on('deploy', function (cfg, url) {
       return utils.format("cd %s && ", loc) + item;
     });
 
-    async.series(commands, exec, function (err) {
+    async.eachSeries(commands, exec, function (err) {
       if (err) {
         console.log(err);
       }
