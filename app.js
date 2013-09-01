@@ -39,7 +39,8 @@ http.createServer(function (req, res) {
     if (repos[identifier] !== undefined) {
       // it's in the config, deploy to everybody who is connected
       console.log("Deploying %s to connected machines", identifier);
-      sock.emit('deploy', repos[identifier], hook.repository.url);
+      var url = "git@github.com:" + repos[identifier].repo + ".git";
+      sock.emit('deploy', repos[identifier], url);
     }
     return res.end();
   });

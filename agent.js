@@ -31,7 +31,9 @@ sock.on('deploy', function (cfg, url) {
       return;
     }
 
-    async.series(cfg.after, exec, function (err) {
+    async.series(cfg.after, function (command, cb) {
+      exec(command, cb);
+    }, function (err) {
       if (err) {
         console.log(err);
       }
