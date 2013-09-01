@@ -1,0 +1,24 @@
+{
+  "name": "pylon",
+  "version": "0.0.0",
+  "description": "Lightweight, distributed code deployment based on git",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ebensing/pylon"
+  },
+  "keywords": [
+    "code",
+    "deployment",
+    "distributed",
+    "git"
+  ],
+  "author": "E.J. Bensing",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ebensing/pylon/issues"
+  }
+}
