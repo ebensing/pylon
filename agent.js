@@ -13,6 +13,7 @@ sock.connect(config.pubPort, config.serverUrl);
 
 sock.on('deploy', function (cfg, url) {
   var ex = fs.existsSync(cfg.name);
+  console.log("Deploying %s", cfg.name);
 
   if (!ex) {
     git.clone(url, cfg.name, function (err, repo_loc) {
@@ -34,6 +35,7 @@ sock.on('deploy', function (cfg, url) {
       if (err) {
         console.log(err);
       }
+      console.log("%s has been deployed", cfg.name);
     });
   }
 });
