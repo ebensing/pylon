@@ -6,6 +6,7 @@ var config = require('./config.js');
 var git = require('./git.js');
 var fs = require('fs');
 var exec = require('child_process').exec;
+var utils = require('util');
 
 var sock = axon.socket('sub-emitter');
 
