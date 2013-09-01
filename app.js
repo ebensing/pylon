@@ -1,13 +1,14 @@
 
 var http = require('http');
 var axon = require('axon');
+var qs = require('querystring');
 
 var config = require('./config.js');
 
 var repos = {};
 
 //setup a dict like this to make things easier later on
-for (var i=0; i < config.projects; i++) {
+for (var i=0; i < config.projects.length; i++) {
   var p = config.projects[i];
 
   repos[p.repo + "/" + p.branch] = p;
@@ -26,17 +27,18 @@ http.createServer(function (req, res) {
   req.on('end', function () {
     var hook = null;
     try {
-      hook = JSON.parse(data);
+      hook = JSON.parse(qs.parse(data).payload);
     } catch (e) {
-      console.log(g);
+      console.log(e);
       return res.end();
     }
 
-    var identifier = hook.repository.owner.name + "/" hook.repository.name +
+    var identifier = hook.repository.owner.name + "/" + hook.repository.name +
       hook.ref.replace("refs/heads","");
 
     if (repos[identifier] !== undefined) {
       // it's in the config, deploy to everybody who is connected
+      console.log("Deploying %s to connected machines", identifier);
       sock.emit('deploy', repos[identifier], hook.repository.url);
     }
     return res.end();

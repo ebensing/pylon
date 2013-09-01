@@ -5,7 +5,7 @@ var settings = {};
 settings.projects = [
   {
     "name" : "dspr",
-    "repo" : "ebensing/dspr",
+    "repo" : "ebensing/Dspr",
     "branch" : "master",
     "after" : [
       "npm install"

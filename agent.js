@@ -15,7 +15,7 @@ sock.on('deploy', function (cfg, url) {
   var ex = fs.existsSync(cfg.name);
 
   if (!ex) {
-    git.clone_repo(url, cfg.name, function (err, repo_loc) {
+    git.clone(url, cfg.name, function (err, repo_loc) {
       git.checkout_ref(repo_loc, cfg.branch, function (err) {
         runAfterCommands(err, repo_loc);
       });
