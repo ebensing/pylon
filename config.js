@@ -8,7 +8,7 @@ settings.projects = [
     "repo" : "ebensing/Dspr",
     "branch" : "master",
     "after" : [
-      "npm install"
+      'sudo -u root -i sh -c "cd /home/ebensing/dspr; npm install"'
     ]
   }
 ];
