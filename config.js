@@ -8,7 +8,11 @@ settings.projects = [
     "repo" : "ebensing/Dspr",
     "branch" : "master",
     "after" : [
-      'sudo -u root -i sh -c "cd /home/ebensing/dspr; npm install"'
+      // okay, so this ugly ass PoS is because things need to run as root when
+      // using upstart, and some node modules have trouble doing that when they
+      // are installing. Should I just make upstart run as a normal user? most
+      // likely. I'm lazy
+      'sudo -u root -i sh -c "cd %loc%; npm install"'
     ]
   }
 ];
