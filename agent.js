@@ -13,17 +13,18 @@ var sock = axon.socket('sub-emitter');
 sock.connect(config.pubPort, config.serverUrl);
 
 sock.on('deploy', function (cfg, url) {
-  var ex = fs.existsSync("../" + cfg.name);
+  var proj_loc = config.projectDir + "/" + cfg.name;
+  var ex = fs.existsSync(proj_loc);
   console.log("Deploying %s", cfg.name);
 
   if (!ex) {
-    git.clone(url, cfg.name, function (err, repo_loc) {
+    git.clone(url, proj_loc, function (err, repo_loc) {
       git.checkout_ref(repo_loc, cfg.branch, function (err) {
         runAfterCommands(err, repo_loc);
       });
     });
   } else {
-    git.pull_latest("../" + cfg.name, cfg.branch, runAfterCommands);
+    git.pull_latest(proj_loc, cfg.branch, runAfterCommands);
   }
 
   function runAfterCommands(err, loc) {

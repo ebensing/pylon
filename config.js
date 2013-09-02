@@ -19,4 +19,6 @@ settings.githubPort = 4500;
 
 settings.serverUrl = "Akroma";
 
+settings.projectDir = "/home/ebensing";
+
 module.exports = exports = settings;
