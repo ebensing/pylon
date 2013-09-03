@@ -34,7 +34,8 @@ sock.on('deploy', function (cfg, url) {
     }
 
     var commands = cfg.after.map(function (item) {
-      return utils.format("cd %s && ", loc) + item.replace("%loc%", loc);
+      return utils.format("cd %s && ", loc) +
+              item.replace(/%loc%/g, loc).replace(/%user%/g, cfg.user);
     });
 
     async.eachSeries(commands, exec, function (err) {
