@@ -13,7 +13,8 @@ settings.projects = [
       // are installing. Should I just make upstart run as a normal user? most
       // likely. I'm lazy
       'sudo -u root -i sh -c "cd %loc%; npm install"',
-      'sudo chown %user%:%user% %loc% -R'
+      'sudo chown %user%:%user% %loc% -R',
+      'sudo -u %user% -i sh -c "cd %loc%; forever start preprocessing/SearchController.js"'
     ],
     user : "ebensing"
   }
