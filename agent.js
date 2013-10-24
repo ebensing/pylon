@@ -5,10 +5,22 @@ var axon = require('axon');
 var config = require('./config.js');
 var git = require('./git.js');
 var fs = require('fs');
-var exec = require('child_process').exec;
+var exec_command = require('child_process').exec;
 var utils = require('util');
 
 var sock = axon.socket('sub-emitter');
+
+// include the command that fails on the error message... Why isn't this
+// default behavior?
+function exec(command, callback) {
+  exec_command(command, function (err, stdout, stderr) {
+    if (err) {
+      err.command = command;
+      err.message += " Command: " + command;
+    }
+    return callback(err, stdout, stderr);
+  });
+}
 
 sock.connect(config.pubPort, config.serverUrl);
 
