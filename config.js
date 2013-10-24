@@ -14,7 +14,7 @@ settings.projects = [
       // likely. I'm lazy
       'sudo -u root -i sh -c "cd %loc%; npm install"',
       'sudo chown %user%:%user% %loc% -R',
-      'sudo -u %user% -i sh -c "forever stopall"',
+      'sudo -u %user% -i sh -c "forever stopall || true"',
       'sudo -u %user% -i sh -c "cd %loc%; forever start client.js"'
     ],
     user : "ebensing"
