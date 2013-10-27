@@ -31,6 +31,10 @@ sock.on('deploy', function (cfg, url) {
 
   if (!ex) {
     git.clone(url, proj_loc, function (err, repo_loc) {
+      if (err) {
+        console.log(err);
+        return;
+      }
       git.checkout_ref(repo_loc, cfg.branch, function (err) {
         runAfterCommands(err, repo_loc);
       });
