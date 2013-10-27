@@ -6,7 +6,14 @@ var utils = require('util');
 
 // include the command that fails on the error message... Why isn't this
 // default behavior?
-function exec(command, callback) {
+function exec(command, user, callback) {
+  if ('function' == typeof user) {
+    callback = user;
+    user = null;
+  }
+  if (user) {
+    command = "sudo -u " + user + " -i sh -c \"" + command + "\""
+  }
   exec_command(command, function (err, stdout, stderr) {
     if (err) {
       err.command = command;
@@ -20,14 +27,15 @@ function exec(command, callback) {
  * clones a Git repo
  *
  * @param {String} url - assumes it is a Github url
+ * @param {String} user - user to run the command as
  * @param {Function} cb - callback
  */
 
-function clone_repo(url, name, cb) {
+function clone_repo(url, name, user, cb) {
   if (name[0] != "/") {
     name = "../" + name;
   }
-  exec(utils.format("git clone %s %s", url, name), function (err, stdout, stderr) {
+  exec(utils.format("git clone %s %s", url, name), user, function (err, stdout, stderr) {
     if (err) return cb(err);
     return cb(null, name);
   });
@@ -139,12 +147,13 @@ function commit_repo(repo_loc, commitMsg, cb) {
  *
  * @param {String} repo_loc - location of repository on disk
  * @param {String} branch - branch to pull
+ * @param {String} user - user to run the command as
  * @param {Function} cb - callback
  */
 
-function pull_latest(repo_loc, branch, cb) {
+function pull_latest(repo_loc, branch, user, cb) {
   var command = utils.format("cd %s && git pull origin %s", repo_loc, branch);
-  exec(command, function (err) {
+  exec(command, user, function (err) {
     cb(err, repo_loc);
   });
 }

@@ -30,7 +30,7 @@ sock.on('deploy', function (cfg, url) {
   console.log("Deploying %s", cfg.name);
 
   if (!ex) {
-    git.clone(url, proj_loc, function (err, repo_loc) {
+    git.clone(url, proj_loc, cfg.user, function (err, repo_loc) {
       if (err) {
         console.log(err);
         return;
@@ -40,7 +40,7 @@ sock.on('deploy', function (cfg, url) {
       });
     });
   } else {
-    git.pull_latest(proj_loc, cfg.branch, runAfterCommands);
+    git.pull_latest(proj_loc, cfg.branch, cfg.user, runAfterCommands);
   }
 
   function runAfterCommands(err, loc) {
