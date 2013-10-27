@@ -62,12 +62,13 @@ function clone_https_repo(url, cb) {
  *
  * @param {String} repo_loc - location of the repo on disk
  * @param {String} ref - name of the ref to checkout ie. "master"
+ * @param {String} user - user to run the command as
  * @param {Function} cb - callback
  */
 
 function checkout_ref(repo_loc, ref, cb) {
   var command = utils.format("cd %s && git fetch origin %s && git checkout %s", repo_loc, ref, ref);
-  exec(command, cb);
+  exec(command, user, cb);
 }
 
 /**

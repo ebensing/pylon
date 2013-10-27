@@ -35,7 +35,7 @@ sock.on('deploy', function (cfg, url) {
         console.log(err);
         return;
       }
-      git.checkout_ref(repo_loc, cfg.branch, function (err) {
+      git.checkout_ref(repo_loc, cfg.branch, cfg.user, function (err) {
         runAfterCommands(err, repo_loc);
       });
     });
